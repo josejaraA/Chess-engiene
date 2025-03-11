@@ -128,40 +128,237 @@ with tabs[1]:
     df4_2 = convert_percentage_(df4_2)
 
 
-
+# -----------------------------
+# Modelo 1.1
+# -----------------------------
     
     st.subheader("Modelo 1.1 - Datos de Entrenamiento - Learning Rate 1")
     st.dataframe(df1.set_index('Epoch'))
     plot_mosaic(df1, "Modelo 1.1 - LR1")
+
+    st.markdown("#### Análisis de Resultados:")
+    st.markdown("##### Acuraccy:")
+    st.write("""
+    - La precisión de entrenamiento sube de forma constante.
+    - La precisión de validación muestra fluctuaciones, lo que sugiere que el modelo tiene dificultades para generalizar.
+             """)
+    st.markdown("##### Perdida")
+    st.write("""
+    - La pérdida en validación muestra un pico anómalo en la tercera época.
+    - Después del pico, se estabiliza, pero sigue siendo superior a la de entrenamiento, un indicio de overfitting.
+            """)
+    st.markdown("##### Top-5-Accuracy")
+    st.write("""
+    - Similar a la precisión general, mejora con el tiempo.
+    - Hay una caída en la tercera época, en sincronía con la pérdida.
+            """)
+    st.markdown("##### Learning Rate")
+    st.write("""
+    - Se mantiene constante hasta la cuarta época y luego cae abruptamente.
+    - Esto indica que ReduceLROnPlateau se activó debido a la falta de mejora en val_loss.
+            """)
     
+# -----------------------------
+# Modelo 1.2
+# -----------------------------
+
     st.subheader("Modelo 1.2 - Datos de Entrenamiento - LR 2")
     st.dataframe(df1_2.set_index('Epoch'))
     plot_mosaic(df1_2, "Modelo 1.2")
+
+    st.markdown("#### Análisis de Resultados:")
+    st.markdown("##### Acuraccy:")
+    st.write("""
+    - La precisión en entrenamiento mejora progresivamente, similar al modelo anterior.
+    - Sin embargo, la precisión de validación decrece después de la segunda época en lugar de mejorar, lo que indica sobreajuste temprano.
+             """)
+    st.markdown("##### Pérdida")
+    st.write("""
+    - La pérdida de validación permanece estable hasta la quinta época y luego se dispara abruptamente, lo que puede ser una señal de que el modelo está fallando en generalizar bien.
+    - La pérdida de entrenamiento se mantiene baja y estable, lo que refuerza la hipótesis de sobreajuste.
+            """)
+    st.markdown("Top-5-Accuracy")
+    st.write("""
+    - Se observa una mejora hasta la quinta época, pero luego la precisión de validación cae drásticamente, indicando problemas en la generalización.
+            """)
+    st.markdown("##### Learning Rate")
+    st.write("""
+    - Se mantiene constante hasta la cuarta época, luego cae bruscamente.
+    - Dado que la paciencia de ReduceLROnPlateau aumentó a 10, es probable que la reducción de la tasa de aprendizaje no haya sido suficiente para evitar la inestabilidad observada en la validación.
+
+            """)
+
+
+# -----------------------------
+# Modelo 2
+# -----------------------------
     
     st.subheader("Modelo 2 - Datos de Entrenamiento")
     st.dataframe(df2.set_index('Epoch'))
     plot_mosaic(df2, "Modelo 2")
+
+    st.markdown("#### Análisis de Resultados:")
+    st.markdown("##### Acuraccy:")
+    st.write("""
+    - En el entrenamiento crece de manera constante sin caídas abruptas.
+    - En la validación también se muestra una mejora constante pero de una a un ritmo más lento.
+            """)
+    st.markdown("##### Pérdida")
+    st.write("""
+    - La pérdida de validación disminuye inicialmente, pero luego empieza a aumentar a partir de la época 10-12.
+    - La pérdida de entrenamiento sigue bajando, reforzando el sobreajuste.
+            """)
+    st.markdown("Top-5-Accuracy")
+    st.write("""
+    - Durante el entrenamiento aumenta constantemente alcanzando valores hasta del 70%
+    - En la validación a partir de la época 10 no presenta mejoras
+             """)
+    st.markdown("##### Learning Rate")
+    st.write("""
+    - La reducción más progresiva parece haber ayudado a estabilizar el modelo en sus primeras épocas.
+            """)
+
+# -----------------------------
+# Modelo 3.1
+# -----------------------------
     
     st.subheader("Modelo 3.1 - Datos de Entrenamiento - LR 1")
     st.dataframe(df3.set_index('Epoch'))
     plot_mosaic(df3, "Modelo 3.1")
+
+    st.markdown("#### Análisis de Resultados:")
+    st.markdown("##### Acuraccy:")
+    st.write("""
+    - Tanto en entrenamiento como en validación, la precisión mejora de manera estable, sin grandes caídas ni picos anormales.
+    - La precisión de validación supera la de entrenamiento en varias épocas iniciales, lo que sugiere mejor generalización que en modelos previos.
+            """)
+    st.markdown("##### Pérdida")
+    st.write("""
+    - Se observa una disminución continua de la pérdida en entrenamiento.
+    - La pérdida en validación deja de mejorar después de la época 7-8 y empieza a oscilar.
+            """)
+    st.markdown("Top-5-Accuracy")
+    st.write("""
+    - Mejor comportamiento que en modelos previos, con una tendencia estable en entrenamiento y validación.
+    - El modelo sigue aprendiendo sin mostrar signos de sobresaturación en el entrenamiento.
+             """)
+    st.markdown("##### Learning Rate")
+    st.write("""
+    - Se mantiene constante en 0.0005 durante todas las épocas mostradas, lo que indica que ReduceLROnPlateau aún no ha activado una reducción
+            """)
+
+# -----------------------------
+# Modelo 3.2
+# -----------------------------
     
     st.subheader("Modelo 3.2 - Datos de Entrenamiento - LR 2")
     st.dataframe(df3_2.set_index('Epoch'))
     plot_mosaic(df3_2, "Modelo 3.2")
+
+    st.markdown("#### Análisis de Resultados:")
+    st.markdown("##### Acuraccy:")
+    st.write("""
+    - Mejora sostenida tanto en entrenamiento como en validación, mostrando una buena convergencia.
+    - La validación sigue la curva de entrenamiento de manera estable, aunque con una ligera brecha a partir de la época 15.
+    - No hay señales de sobreajuste severo, lo que indica que la arquitectura está mejor balanceada
+            """)
+    st.markdown("##### Pérdida")
+    st.write("""
+    - Descenso progresivo en entrenamiento y validación, similar a la tendencia del modelo 3.1.
+    - Sin embargo, después de la época 20 la pérdida en validación se estanca e incluso empieza a subir ligeramente, lo que sugiere que el modelo puede estar alcanzando su límite.
+            """)
+    st.markdown("Top-5-Accuracy")
+    st.write("""
+    - MEvolución consistente, con valores más altos que en modelos anteriores
+    - Validación y entrenamiento tienen una evolución similar, lo que sugiere que el modelo generaliza mejor.
+             """)
+    st.markdown("##### Learning Rate")
+    st.write("""
+    - Se mantiene en 0.0005 hasta la época 25 y luego baja bruscamente.
+    - Esto indica que ReduceLROnPlateau activó la reducción, porque la pérdida en validación dejó de mejorar.
+            """)
+
+# -----------------------------
+# Modelo 3.3
+# -----------------------------
     
     st.subheader("Modelo 3.3 - Datos de Entrenamiento - LR 3")
     st.dataframe(df3_3.set_index('Epoch'))
     plot_mosaic(df3_3, "Modelo 3.3")
+
+    st.markdown("#### Análisis de Resultados:")
+    st.markdown("##### Acuraccy:")
+    st.write("""
+    - Ambas curvas (entrenamiento y validación) muestran una mejora estable y continua.
+    - La precisión en validación alcanza el mismo nivel que en entrenamiento antes de estabilizarse.
+            """)
+    st.markdown("##### Pérdida")
+    st.write("""
+    - Disminución progresiva en entrenamiento y validación hasta aproximadamente la época 15.
+    - la pérdida en validación se estabiliza e incluso sube ligeramente por la época 14, lo que podría indicar el inicio del sobreajuste.
+            """)
+    st.markdown("Top-5-Accuracy")
+    st.write("""
+    - La validación sigue la tendencia del entrenamiento, lo que sugiere que el modelo está aprendiendo correctamente sin sesgos fuertes.
+             """)
+    st.markdown("##### Learning Rate")
+    st.write("""
+    - Se mantiene constante hasta la época 15, luego se reduce bruscamente. Esto sugiere que ReduceLROnPlateau se activó cuando la pérdida en validación dejó de mejorar, lo que parece haber ayudado a la estabilización.
+            """)
+
+# -----------------------------
+# Modelo 4.1
+# -----------------------------
     
     st.subheader("Modelo 4.1 - Datos de Entrenamiento - LR 1")
     st.dataframe(df4.set_index('Epoch'))
     plot_mosaico_(df4, "Modelo 4.1")
+
+    st.markdown("#### Análisis de Resultados:")
+    st.markdown("##### Acuraccy:")
+    st.write("""
+    - Las dos métricas tienen valores significativamente más altos que en los modelos anteriores, lo que indica que esta reformulación del problema es más efectiva.
+    - Ambas curvas (entrenamiento y validación) muestran una mejora estable y continua.
+    - La precisión de validación alcanza un nivel estable sin caídas abruptas, indicando buena generalización.
+    - Se observa que el modelo predice con mayor precisión la casilla de origen (from_square) que la de destino (to_square).
+            """)
+    st.markdown("##### Pérdida")
+    st.write("""
+    - Disminuye de manera estable tanto en entrenamiento como en validación hasta aproximadamente la época 20.
+    - Después de la época 20, la pérdida en validación se estabiliza y comienza a subir ligeramente, indicando el inicio de un posible sobreajuste.
+            """)
+    st.markdown("##### Learning Rate")
+    st.write("""
+    - Se mantiene constante hasta la época 20 y luego se reduce progresivamente.
+    - Esto indica que ReduceLROnPlateau se activó cuando la pérdida en validación dejó de mejorar, ayudando a estabilizar el entrenamiento.
+            """)
+
+# -----------------------------
+# Modelo 4.2
+# -----------------------------
     
-    st.subheader("Modelo 4.2 - Datos de Entrenamiento - LR 2")
+    st.subheader("Modelo 4.2 - Datos de Entrenamiento")
     st.dataframe(df4_2.set_index('Epoch'))
     plot_mosaico_(df4_2, "Modelo 4.2")
 
+    st.markdown("#### Análisis de Resultados:")
+    st.markdown("##### Acuraccy:")
+    st.write("""
+    - Tanto en "pieza" como en "movimiento", la precisión en validación se mantiene más cercana a la de entrenamiento.
+    - No se observa una brecha de sobreajuste tan pronunciada como en 4.1, lo que indica que el modelo generaliza mejor con más datos.
+    - La convergencia es más estable y rápida, alcanzando valores altos en menos épocas.
+            """)
+    st.markdown("##### Pérdida")
+    st.write("""
+    - La pérdida en entrenamiento sigue bajando de manera estable, lo que indica que el modelo sigue aprendiendo.
+    - Sin embargo, la pérdida en validación es extremadamente inestable, con oscilaciones abruptas.
+    - Este comportamiento errático sugiere que, aunque el dataset sea más grande, hay una alta variabilidad en los datos de validación, lo que podría indicar que los datos contienen patrones más complejos o ruidosos.
+            """)
+    st.markdown("##### Learning Rate")
+    st.write("""
+    - Se mantiene en 0.0005 hasta la época 5, luego se reduce progresivamente.
+    - Se observa una reducción más temprana del learning rate en comparación con el modelo 4.1, lo que podría deberse a que la pérdida de validación comenzó a oscilar antes.
+            """)
 
 # -----------------------------
 # Pestaña: Juego de Ajedrez
