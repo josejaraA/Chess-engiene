@@ -7,7 +7,7 @@ import chess.svg
 import streamlit.components.v1 as components
 import random
 import numpy as np
-
+from PIL import Image
 
 # =============================
 # Funciones para procesamiento y gráficos
@@ -251,14 +251,24 @@ def best_model_move(board, model):
 # =============================
 # Estructura 
 # =============================
-
 st.set_page_config(page_title="App de Entrenamiento y Juego de Ajedrez", layout="wide")
+st.title("App de Ajedrez")
+image = Image.open("imgn\images.jpeg")
+
+# Redimensionar la imagen (ancho, alto) en píxeles
+resized_image = image.resize((1500, 300))  # Ejemplo: 600px de ancho y 300px de alto
+
+st.image(resized_image)
+
+
 tabs = st.tabs(["Inicio", "Resultados", "Juego de Ajedrez"])
+
 
 # -----------------------------
 # Pestaña: Inicio
 # -----------------------------
 with tabs[0]:
+    
     st.title("Bienvenido a la App de Ajedrez y Entrenamiento")
     st.write("""
     **Instrucciones:**
@@ -593,7 +603,7 @@ with tabs[2]:
     # Cargar el modelo (se guarda en session_state para evitar recargas)
     custom_objects = {"mse": tf.keras.losses.MeanSquaredError()}
     if "model" not in st.session_state:
-        st.session_state.model = tf.keras.models.load_model("Modelos de Prueba\ModeloAjedrez_D2.h5", custom_objects=custom_objects)
+        st.session_state.model = tf.keras.models.load_model("Modelos Finales/ModeloAjedrez_D2.h5", custom_objects=custom_objects)
     model = st.session_state.model
 
     # Inicializar el tablero si no existe
