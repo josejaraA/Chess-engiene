@@ -8,6 +8,7 @@ import streamlit.components.v1 as components
 import random
 import numpy as np
 
+
 # =============================
 # Funciones para procesamiento y gráficos
 # =============================
@@ -29,53 +30,223 @@ def convert_percentage_(df):
 
 def plot_mosaic(df, title_prefix):
     st.subheader(f"{title_prefix} - Gráficos de Evolución")
-    fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+    fig, axes = plt.subplots(2, 2, figsize=(10 ,6))
+
+        # Definir colores y estilos personalizados
+    train_color = '#1f77b4'  # Azul para entrenamiento
+    val_color = '#ff7f0e'    # Naranja para validación
+    lr_color = '#2ca02c'     # Verde para la tasa de aprendizaje
+    line_style = '-'         # Estilo de línea sólida
+    marker_train = 'o'       # Marcador para entrenamiento
+    marker_val = 's'         # Marcador para validación
+    marker_lr = 'd'          # Marcador para la tasa de aprendizaje
     
     def plot_metric(ax, train_col, val_col, title):
-        ax.plot(df['Epoch'], df[train_col], label='Train', marker='o')
-        ax.plot(df['Epoch'], df[val_col], label='Validation', marker='s')
+        ax.plot(df['Epoch'], df[train_col], label='Train', 
+                color=train_color, linestyle=line_style, marker=marker_train)
+        ax.plot(df['Epoch'], df[val_col], label='Validation', 
+                color=val_color, linestyle=line_style, marker=marker_val)
         ax.set_xlabel("Epoch")
         ax.set_ylabel(title)
         ax.set_title(title)
         ax.legend()
+        ax.grid(True, linestyle='--', alpha=0.6)
     
     plot_metric(axes[0, 0], 'Accuracy (Train)', 'Accuracy (Val)', "Accuracy")
     plot_metric(axes[0, 1], 'Loss (Train)', 'Loss (Val)', "Loss")
     plot_metric(axes[1, 0], 'Top-5 Accuracy (Train)', 'Top-5 Accuracy (Val)', "Top-5 Accuracy")
     
-    axes[1, 1].plot(df['Epoch'], df['Learning Rate'], label='Learning Rate', marker='d', color='purple')
+    axes[1, 1].plot(df['Epoch'], df['Learning Rate'], label='Learning Rate', 
+                    color=lr_color, linestyle=line_style, marker=marker_lr)
     axes[1, 1].set_xlabel("Epoch")
     axes[1, 1].set_ylabel("Learning Rate")
     axes[1, 1].set_title("Learning Rate")
     axes[1, 1].legend()
+    axes[1, 1].grid(True, linestyle='--', alpha=0.6) 
     
     plt.tight_layout()
     st.pyplot(fig)
 
 def plot_mosaico_(df, title_prefix):
     st.subheader(f"{title_prefix} - Gráficos de Evolución")
-    fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+    fig, axes = plt.subplots(2, 2, figsize=(10, 6))
+
+            # Definir colores y estilos personalizados
+    train_color = '#1f77b4'  # Azul para entrenamiento
+    val_color = '#ff7f0e'    # Naranja para validación
+    lr_color = '#2ca02c'     # Verde para la tasa de aprendizaje
+    line_style = '-'         # Estilo de línea sólida
+    marker_train = 'o'       # Marcador para entrenamiento
+    marker_val = 's'         # Marcador para validación
+    marker_lr = 'd'          # Marcador para la tasa de aprendizaje
     
     def plot_metric(ax, train_col, val_col, title):
-        ax.plot(df['Epoch'], df[train_col], label='Train', marker='o')
-        ax.plot(df['Epoch'], df[val_col], label='Validation', marker='s')
+        ax.plot(df['Epoch'], df[train_col], label='Train', 
+                color=train_color, linestyle=line_style, marker=marker_train)
+        ax.plot(df['Epoch'], df[val_col], label='Validation', 
+                color=val_color, linestyle=line_style, marker=marker_val)
         ax.set_xlabel("Epoch")
         ax.set_ylabel(title)
         ax.set_title(title)
         ax.legend()
+        ax.grid(True, linestyle='--', alpha=0.6)
     
     plot_metric(axes[0, 0], 'From Square Accuracy (Train)', 'From Square Accuracy (Val)', "Accuracy - pieza")
     plot_metric(axes[0, 1], 'Loss (Train)', 'Loss (Val)', "Loss")
     plot_metric(axes[1, 0], 'To Square Accuracy (Train)', 'To Square Accuracy (Val)', "Accuracy - movimiento")
     
-    axes[1, 1].plot(df['Epoch'], df['Learning Rate'], label='Learning Rate', marker='d', color='purple')
+    axes[1, 1].plot(df['Epoch'], df['Learning Rate'], label='Learning Rate', 
+                    color=lr_color, linestyle=line_style, marker=marker_lr)
     axes[1, 1].set_xlabel("Epoch")
     axes[1, 1].set_ylabel("Learning Rate")
     axes[1, 1].set_title("Learning Rate")
     axes[1, 1].legend()
+    axes[1, 1].grid(True, linestyle='--', alpha=0.6) 
     
     plt.tight_layout()
     st.pyplot(fig)
+
+def plot_mosaico_1(df, title_prefix):
+    st.subheader(f"{title_prefix} - Gráficos de Evolución")
+    fig, axes = plt.subplots(3, 2, figsize=(10,6))
+
+            # Definir colores y estilos personalizados
+    train_color = '#1f77b4'  # Azul para entrenamiento
+    val_color = '#ff7f0e'    # Naranja para validación
+    lr_color = '#2ca02c'     # Verde para la tasa de aprendizaje
+    line_style = '-'         # Estilo de línea sólida
+    marker_train = 'o'       # Marcador para entrenamiento
+    marker_val = 's'         # Marcador para validación
+    marker_lr = 'd'          # Marcador para la tasa de aprendizaje
+    
+    def plot_metric(ax, train_col, val_col, title):
+        ax.plot(df['Epoch'], df[train_col], label='Train', 
+                color=train_color, linestyle=line_style, marker=marker_train)
+        ax.plot(df['Epoch'], df[val_col], label='Validation', 
+                color=val_color, linestyle=line_style, marker=marker_val)
+        ax.set_xlabel("Epoch")
+        ax.set_ylabel(title)
+        ax.set_title(title)
+        ax.legend()
+        ax.grid(True, linestyle='--', alpha=0.6)
+    
+    plot_metric(axes[0, 0], 'From Square Accuracy (Train)', 'From Square Accuracy (Val)', "Accuracy - pieza")
+    plot_metric(axes[0, 1], 'Loss (Train)', 'Loss (Val)', "Loss")
+    plot_metric(axes[1, 0], 'To Square Accuracy (Train)', 'To Square Accuracy (Val)', "Accuracy - movimiento")
+    
+    axes[1, 1].plot(df['Epoch'], df['Learning Rate'], label='Learning Rate', 
+                    color=lr_color, linestyle=line_style, marker=marker_lr)
+    axes[1, 1].set_xlabel("Epoch")
+    axes[1, 1].set_ylabel("Learning Rate")
+    axes[1, 1].set_title("Learning Rate")
+    axes[1, 1].legend()
+    axes[1, 1].grid(True, linestyle='--', alpha=0.6) 
+
+    axes[2, 0].plot(df['Epoch'], df['Position Eval MAE (Train)'], label='Position Eval MAE (Train)', 
+                    color=lr_color, linestyle=line_style, marker=marker_lr)
+    axes[2, 0].set_xlabel("Epoch")
+    axes[2, 0].set_ylabel("MAE (Train)")
+    axes[2, 0].set_title("Position Eval MAE (Train)")
+    axes[2, 0].legend()
+    axes[2, 0].grid(True, linestyle='--', alpha=0.6) 
+
+    axes[2, 1].plot(df['Epoch'], df['Position Eval MAE (Val)'], label='Position Eval MAE (Val)', 
+                    color=lr_color, linestyle=line_style, marker=marker_lr)
+    axes[2, 1].set_xlabel("Epoch")
+    axes[2, 1].set_ylabel("MAE (Val)")
+    axes[2, 1].set_title("Position Eval MAE (Val)")
+    axes[2, 1].legend()
+    axes[2, 1].grid(True, linestyle='--', alpha=0.6) 
+    
+    plt.tight_layout()
+    st.pyplot(fig)
+
+# =============================
+# Funciones para el Modelo De Ajedrez
+# =============================
+
+
+def board_to_matrix(fen):
+    board = chess.Board(fen)
+    matrix = np.zeros((8, 8, 17), dtype=np.float32)
+
+    for square, piece in board.piece_map().items():
+        row, col = divmod(square, 8)
+        channel = piece.piece_type - 1
+        if piece.color == chess.BLACK:
+            channel += 6
+        matrix[row, col, channel] = 1
+
+    matrix[:, :, 12] = 1 if board.turn == chess.WHITE else -1
+    matrix[:, :, 13] = 1 if board.has_kingside_castling_rights(chess.WHITE) else 0
+    matrix[:, :, 14] = 1 if board.has_queenside_castling_rights(chess.WHITE) else 0
+    matrix[:, :, 15] = 1 if board.has_kingside_castling_rights(chess.BLACK) else 0
+    matrix[:, :, 16] = 1 if board.has_queenside_castling_rights(chess.BLACK) else 0
+
+    return matrix
+def turno_ia(model):
+    if not st.session_state.board.is_game_over():
+        move = best_model_move(st.session_state.board, model)
+        st.session_state.board.push(move)
+        st.success(f"La IA jugó: {move.uci()}")
+
+def mostrar_tablero():
+    board_svg = chess.svg.board(board=st.session_state.board, size=350)
+    # Usamos un placeholder en session_state para sobreescribir el mismo tablero
+    st.session_state.tablero_placeholder.empty()
+    with st.session_state.tablero_placeholder:
+        components.html(board_svg, height=400, scrolling=False)
+
+def mover_si_es_turno_ia(model):
+    # Si el usuario es "Negras", la IA debe mover cuando board.turn == WHITE
+    # Si el usuario es "Blancas", la IA debe mover cuando board.turn == BLACK
+    if (st.session_state.jugador == "Negras" and st.session_state.board.turn == chess.WHITE) or \
+       (st.session_state.jugador == "Blancas" and st.session_state.board.turn == chess.BLACK):
+        turno_ia(model)
+
+def render_chessboard():
+    with open("static/Tablero.html", "r", encoding="utf-8") as f:
+        html_code = f.read()
+    # Reemplazar la marca {{ FEN }} con el estado actual del tablero
+    html_code = html_code.replace("{{ FEN }}", st.session_state.board.fen())
+    st.components.v1.html(html_code, height=500)
+
+def move_piece(uci_move):
+    move = chess.Move.from_uci(uci_move)
+    if move in st.session_state.board.legal_moves:
+        st.session_state.board.push(move)
+        return True  # Movimiento válido
+    return False  # Movimiento inválido
+# ------------------------------------------------
+# Función para elegir la mejor jugada según el modelo
+# ------------------------------------------------
+def best_model_move(board, model):
+    """
+    Toma el board de python-chess y el modelo con 3 salidas (from_square, to_square, position_eval).
+    Devuelve la jugada (chess.Move) que maximiza pred_from[from_sq] * pred_to[to_sq].
+    """
+
+    # Convertir el tablero a matriz y predecir
+    mat = board_to_matrix(board.fen())
+    mat = np.expand_dims(mat, axis=0)  # (1,8,8,17)
+    
+    # El modelo devuelve 3 salidas: pred_from, pred_to, pred_eval
+    pred_from, pred_to, _ = model.predict(mat, verbose=0)
+    pred_from = pred_from[0]  # shape (64,)
+    pred_to   = pred_to[0]    # shape (64,)
+
+    best_prob = -1.0
+    best_move = None
+
+    for move in board.legal_moves:
+        from_idx = move.from_square
+        to_idx   = move.to_square
+        prob = pred_from[from_idx] * pred_to[to_idx]
+        if prob > best_prob:
+            best_prob = prob
+            best_move = move
+
+    return best_move
 
 # =============================
 # Estructura 
@@ -110,10 +281,10 @@ with tabs[1]:
     df3_3 = pd.read_csv('Resultados/training_results_modelo3_3.csv', index_col='Epoch')
     df4 = pd.read_csv('Resultados/training_results_modelo4_1.csv', index_col='Epoch')
     df4_2 = pd.read_csv('Resultados/training_results_modelo4_2.csv', index_col='Epoch')
+    df5_1 = pd.read_csv('Resultados/training_results_modelo5_1.csv', index_col='Epoch')
+    
 
-
-
-    dfs = [df1, df1_2, df2, df3, df3_2, df3_3, df4, df4_2]
+    dfs = [df1, df1_2, df2, df3, df3_2, df3_3, df4, df4_2,df5_1]
 
     for df in dfs:
         df.reset_index(inplace=True)
@@ -126,6 +297,8 @@ with tabs[1]:
     df3_3 = convert_percentage(df3_3)
     df4 = convert_percentage_(df4)
     df4_2 = convert_percentage_(df4_2)
+    df5_1 = convert_percentage_(df5_1)
+
 
 
 # -----------------------------
@@ -359,74 +532,103 @@ with tabs[1]:
     - Se mantiene en 0.0005 hasta la época 5, luego se reduce progresivamente.
     - Se observa una reducción más temprana del learning rate en comparación con el modelo 4.1, lo que podría deberse a que la pérdida de validación comenzó a oscilar antes.
             """)
+    
+# -----------------------------
+# Modelo 5.1
+# -----------------------------
+    
+    st.subheader("Modelo 5.1 - Datos de Entrenamiento")
+    st.dataframe(df5_1.set_index('Epoch'))
+    plot_mosaico_1(df5_1, "Modelo 5.1")
 
+    st.markdown("#### Análisis de Resultados:")
+    st.markdown("##### Acuraccy:")
+    st.write("""
+    - El modelo ha logrado una convergencia más rápida en comparación con versiones anteriores.
+    - La precisión de validación se mantiene muy cerca de la precisión de entrenamiento, lo que indica buena generalización.
+    - A diferencia de modelos anteriores, no hay un gap grande entre entrenamiento y validación, lo que sugiere que el modelo está aprovechando mejor los datos 
+            """)
+    st.markdown("##### Pérdida")
+    st.write("""
+    - La pérdida de entrenamiento disminuye de manera constante y sin oscilaciones, lo que indica que el modelo está aprendiendo de manera estable.
+    - La pérdida de validación tiene una disminución progresiva hasta la época 30, momento en el que comienza a estabilizarse.
+    - No se observan grandes fluctuaciones en la pérdida de validación, lo que es una gran mejora en comparación con el modelo anterior, donde la val_loss oscilaba mucho.
+    - La reducción temprana del learning rate parece haber ayudado a evitar picos en la pérdida de validación.
+                """)
+    st.markdown("##### Learning Rate")
+    st.write("""
+    - El learning rate inicia en 0.001, lo que permitió una convergencia más rápida en las primeras épocas.
+    - ReduceLROnPlateau se activa alrededor de la época 20 y baja el learning rate de manera progresiva, ayudando a estabilizar la validación.
+    - Este ajuste parece haber permitido que el modelo mantenga una pérdida de validación más estable sin picos anómalos.
+             """)
+    st.markdown("##### Position Evaluation MAE")
+    st.write("""
+    - El MAE en entrenamiento y validación disminuye de manera progresiva.
+    - El MAE de validación no se dispara como en iteraciones previas, lo que indica que el modelo está generalizando mejor la evaluación de la posición.
+    - En validación, el MAE fluctúa un poco en las primeras épocas, pero luego se estabiliza conforme el learning rate baja.
+             """)
+    
+# -----------------------------
+# Modelo 5.2
+# -----------------------------
 # -----------------------------
 # Pestaña: Juego de Ajedrez
 # -----------------------------
 with tabs[2]:
-    st.title("Juego de Ajedrez con el Modelo")
+    st.title("Juego de Ajedrez con el Modelo (Entrada de Texto UCI)")
+
+    # Permitir al usuario elegir su color y guardarlo en session_state
+    if "jugador" not in st.session_state:
+        st.session_state.jugador = st.radio("Elige tu color:", options=["Blancas", "Negras"])
+    else:
+        jugador_seleccionado = st.radio("Elige tu color:", options=["Blancas", "Negras"],
+                                        index=0 if st.session_state.jugador=="Blancas" else 1)
+        st.session_state.jugador = jugador_seleccionado
+    st.write("Juegas con:", st.session_state.jugador)
+
+    # Inicializa el placeholder para el tablero si aún no existe
+    if "tablero_placeholder" not in st.session_state:
+        st.session_state.tablero_placeholder = st.empty()
+
+    # Cargar el modelo (se guarda en session_state para evitar recargas)
     custom_objects = {"mse": tf.keras.losses.MeanSquaredError()}
-    model = tf.keras.models.load_model("ModeloAjedrez_v8.h5", custom_objects=custom_objects)
-     
+    if "model" not in st.session_state:
+        st.session_state.model = tf.keras.models.load_model("Modelos de Prueba\ModeloAjedrez_D2.h5", custom_objects=custom_objects)
+    model = st.session_state.model
+
+    # Inicializar el tablero si no existe
+    if "board" not in st.session_state:
+        st.session_state.board = chess.Board()
+
+   
+
+    # Usamos un formulario para la entrada de movimiento
+    with st.form(key="movimiento_form"):
+        uci_move = st.text_input("Ingresa tu movimiento (formato UCI):", value="", key="uci_move")
+        submit_move = st.form_submit_button("Enviar Movimiento")
+
+        if submit_move:
+            if uci_move.strip() != "":
+                try:
+                    move = chess.Move.from_uci(uci_move.strip())
+                except Exception as e:
+                    st.error("Error al interpretar el movimiento: " + str(e))
+                else:
+                    if move in st.session_state.board.legal_moves:
+                        st.session_state.board.push(move)
+                        st.success(f"Movimiento del usuario: {move.uci()}")
+                        # Si es el turno de la IA, realiza su jugada
+                        mover_si_es_turno_ia(model)
+                    else:
+                        st.error("Movimiento ilegal: " + uci_move)
+            else:
+                st.error("Debes ingresar un movimiento en formato UCI.")
+
+    # Actualizar el tablero en el placeholder con el estado actualizado
+    board_svg = chess.svg.board(board=st.session_state.board, size=350)
+    with st.session_state.tablero_placeholder:
+         st.components.v1.html(board_svg, height=400, scrolling=False)
 
 
 
-
-def board_to_input(board):
-    fen = board.fen()
-    input_vector = np.zeros((1, 773))  
-    return input_vector
-
-
-def decode_prediction(prediction, board):
-
-    legal_moves = list(board.legal_moves)
-    if not legal_moves:
-        return None
-    if prediction.shape[1] == len(legal_moves):
-        idx = np.argmax(prediction[0])
-        best_move = legal_moves[idx]
-    else:
-        best_move = random.choice(legal_moves)
-    return best_move
-
-def obtener_mejor_jugada(board, model):
-    input_data = board_to_input(board)
-    prediction = model.predict(input_data)
-    best_move = decode_prediction(prediction, board)
-    return best_move
-
-if 'board' not in st.session_state:
-    st.session_state.board = chess.Board()
-
-board_svg = chess.svg.board(st.session_state.board, size=350)
-components.html(board_svg, height=400)
-
-user_move = st.text_input("Ingresa tu movimiento (formato UCI, e.g. 'e2e4'):")
-
-if st.button("Realizar movimiento"):
-    try:
-        move = chess.Move.from_uci(user_move.strip())
-        if move in st.session_state.board.legal_moves:
-            st.session_state.board.push(move)
-        else:
-            st.error("Movimiento ilegal. Por favor, ingresa un movimiento válido.")
-    except Exception as e:
-        st.error("Error al interpretar el movimiento. Asegúrate de usar el formato UCI.")
-
-    
-    board_svg = chess.svg.board(st.session_state.board, size=350)
-    components.html(board_svg, height=400)
-
-if st.button("Movimiento del Modelo"):
-    if st.session_state.board.is_game_over():
-        st.info("El juego ha terminado.")
-    else:
-        mejor_movimiento = obtener_mejor_jugada(st.session_state.board, model)
-        if mejor_movimiento is not None:
-            st.session_state.board.push(mejor_movimiento)
-            st.success(f"El modelo juega: {mejor_movimiento.uci()}")
-        else:
-            st.error("No se pudo obtener un movimiento del modelo.")
-    board_svg = chess.svg.board(st.session_state.board, size=350)
-    components.html(board_svg, height=400)
+ 
