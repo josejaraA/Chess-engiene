@@ -253,7 +253,7 @@ def best_model_move(board, model):
 # =============================
 st.set_page_config(page_title="App de Entrenamiento y Juego de Ajedrez", layout="wide")
 st.title("App de Ajedrez")
-image = Image.open("imgn\images.jpeg")
+image = Image.open("imgn/images.jpeg")
 
 # Redimensionar la imagen (ancho, alto) en píxeles
 resized_image = image.resize((1500, 300))  # Ejemplo: 600px de ancho y 300px de alto
