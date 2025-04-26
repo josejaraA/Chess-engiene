@@ -8,8 +8,8 @@ TIME_L = 0.1
 NUM_PARTIDAS = 500
 
 
-pgn_filename = "partidas_stockfish.pgn"
-STOCKFISH_PATH = "stockfish/stockfish-windows-x86-64-avx2.exe"
+pgn_filename = "partidas_stockfish_2.pgn"
+STOCKFISH_PATH = "D:/stockfish-windows-x86-64-avx2/stockfish/stockfish-windows-x86-64-avx2.exe"
 engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
 
 

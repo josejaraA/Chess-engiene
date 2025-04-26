@@ -89,8 +89,8 @@ def main():
    
     custom_objects = {"mse": tf.keras.losses.MeanSquaredError()}
     print("Cargando el modelo ...")
-    model_v1 = tf.keras.models.load_model("ModeloAjedrez_v8.h5", custom_objects=custom_objects)
-    model_v2 = tf.keras.models.load_model("ModeloAjedrez_v7.3.h5")
+    model_v1 = tf.keras.models.load_model("Modelos de Prueba/ModeloAjedrez_v8.h5", custom_objects=custom_objects)
+    model_v2 = tf.keras.models.load_model("Modelos Finales/ModeloAjedrez_D2.h5",custom_objects=custom_objects)
 
     num_partidas = 50
     juegos = []
